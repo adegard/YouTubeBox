@@ -112,11 +112,11 @@ for id,items in JsonObject2["items"]{	; go through "JsonObject" array (series[1]
             Title := val1
      }
     for key2,val2 in items.id{		; go through "JsonObject" array (series[1], series[2], and so on)
-        if (key2="videoId")
+        if (key2="playlistId")
             Linka := val2
      }
 
-    Lista  .= "</br> <a href=myapp://https://www.youtube.com/watch?v="Linka " >" Title "</a></br>"     
+    Lista  .= "</br> <a href=myapp://https://www.youtube.com//playlist?list="Linka " >" Title "</a></br>"     
     ;MsgBox, "Lista is :" %Lista% 
     
  }     
