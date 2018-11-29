@@ -14,16 +14,21 @@ Gui 1:Add, Edit, vsearch x450 y3 w261 h30  -WantReturn -VScroll, megadeth
 Gui 1:Add, Button, x716 y3 w35 h30 gsearch hwndsearch ;, &SEARCH
 GuiButtonIcon(search, "shell32.dll", 56, "s32 a4")
 
-/*
-Gui Add, Button, vieselector x16 y370 w42 h36 section gSelector hwndieselector
-GuiButtonIcon(ieselector, "shell32.dll", 56, "s32 a4")
-*/
+Gui 1:Add, Edit, vvlc x21 y380 w275 h21
+Gui 1:Add, Button, x303 y379 w80 h23 gvlc , Send to VLC
+
+
+
+
 Gui Add, Link, x15 y10 w187 h15, <a href="https://autohotkey.com/boards/viewtopic.php?f=6&t=59438">Forum Thread ahk</a>
 
 ;VIDEO PLAYER:
 Gui, 1:Add, ActiveX, x15 y37 w420 h364 vpwb, Shell.Explorer
 pwb.Navigate("https://www.youtube.com/watch?v=UD_mry_DN-s") 
 WinGetTitle, WinTitle, A
+
+GuiControl,, vlc, https://www.youtube.com/watch?v=UD_mry_DN-s
+
 
 ;https://www.youtube.com/watch?v=EDwb9jOVRtU")
 Gui 1:Add, ActiveX, x449 y37 w354 h364 vWB, Shell.Explorer  ; The final parameter is the name of the 
@@ -41,9 +46,6 @@ window := pwb.document.parentWindow
 WinGet, active_id, ID, A
   
 return
-
-
-;MsgBox, %List%
 
 
 search:
@@ -96,7 +98,6 @@ for id,items in JsonObject["items"]{	; go through "JsonObject" array (series[1],
             Linka := val2
      }
 
-    ;Lista  .= "</br> <a href=myapp://https://www.youtube.com/watch?v="Linka " >" Title "</a></br>"     
     Lista  .= "<tr><td style='text-align: left; width: 97px;'><a href=myapp://https://www.youtube.com/watch?v="Linka "><img border='0' src="thumb " ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/watch?v="Linka ">" Title "</a></td></tr>"     
     ;MsgBox, %Lista%
     
@@ -119,9 +120,6 @@ JsonObject2 := MyJsonInstance2.Load(JsonContent2)
 
 Lista  .=   "<tr><td style='text-align: left; width: 97px;'>PlayLists:</td><td style='text-align: left; width: 134px;'></td></tr>"
 
-;Lista  .= "</br> PlayLists: </br>" 
-;MsgBox, %JsonObject%
-; or simply JsonObject := JSON.Load(JsonContent), since You want to use the class' method only
 for id,items in JsonObject2["items"]{	; go through "JsonObject" array (series[1], series[2], and so on)
     for key4,val4 in items.snippet{		; go through "JsonObject" array (series[1], series[2], and so on)
         if (key4="Title")
@@ -138,35 +136,9 @@ for id,items in JsonObject2["items"]{	; go through "JsonObject" array (series[1]
             Linka := val6
      }
 
-   ; Lista  .= "</br> <a href=myapp://https://www.youtube.com//playlist?list="Linka " >" Title "</a></br>"     
     Lista  .= "<tr><td style='text-align: left; width: 97px;'><a href=myapp://https://www.youtube.com/playlist?list="Linka "><img border='0' src="thumb " ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/playlist?list="Linka ">" Title "</a></td></tr>"     
-    ;, "Lista is :" %Lista% 
     
  }     
-/* PARSING HTML METHOD
-
-YTurl :="https://www.youtube.com/results?search_query="keyword
-;MsgBox, %YTurl%
-;extract urls
-
-FileDelete, export.html 
-UrlDownloadToFile, %YTurl%, export.html  ; 01
-Sleep, 1000
-FileRead, html, export.html 
-;MsgBox, %html%
-;reset lista
-Lista=
-Loop, 5 {
-        Item  := StrX( html ,  "yt-lockup-title " ,N,0,  "</h3>" ,1,0,  N )  
-;While Item  := StrX( html ,  "yt-lockup-title " ,N,0,  "</h3>" ,1,0,  N )  {
-       ; 03
-         Title := StrX( Item,  "title=",1,7,  "aria-describ",1,14     )         ; 04-->  ria-describ 14
-        Linka  := StrX( Item,  "href" ,1,7,  "class" ,1,7     )         ; 05
-        Lista  .= "</br> <a href=myapp://https://www.youtube.com/"Linka " >" Title "</a></br>"
-    }
-;MsgBox, %Title%
-
-*/
 
 HTML_page_head =
 ( Ltrim Join
@@ -196,14 +168,65 @@ ComObjConnect(WB, WB_events)  ; Connect WB's events to the WB_events class objec
 firsttime=1
 return
 
+;VLC OPEN
+vlc:
+
+    GuiControlGet, vlcurl,, vlc
+
+    Filename1=VLCPlugin & ActiveX Test
+    Gui,3:default
+    GUI,3:Font,s14 cGray,Lucida Console
+    Gui,3: -DPIScale
+    Gui,3: Color, Black,Black 
+
+
+    wa:=A_screenwidth
+    ha:=A_screenHeight
+    xx:=105
+    LW  :=(wa*88) /xx 
+    LH  :=(ha*88) /xx  
+    GW  :=(wa*90) /xx 
+    GH  :=(ha*92) /xx  
+
+    vlc1        =%A_programfiles%\VideoLAN\VLC\vlc.exe
+    ifnotexist,%vlc1% 
+      {
+      msgbox,needs=`n%vlc1%
+      exitapp
+      }
+    xxa=VideoLAN.VLCPlugin.2
+    Gui,3:Add,ActiveX, x20    y0     w%lw%  h%lh%  vVlcx,%xxa%
+    Gui,3:Show,x0 y0 w%gw% h%gh%,%filename1%
+    gosub,aa1
+    return
+    3Guiclose:
+    Gui,3:Destroy
+    ;------------
+return
+
+
+aa1:
+MsgBox, %vlcurl%
+    ;id1=_b9R_x_imBM
+    ;id1=CK-pDtdW4Ug
+    ;id1=0LTZRYJzqB4    ;- not works
+    ;F1=https://www.youtube.com/watch?v=%id1%
+    F1= %vlcurl%
+    MsgBox, %F1%
+         vlcx.playlist.add(F1,"","""""")
+         vlcx.playlist.next()
+return
+
+
+
 
 GuiSize:
-if ErrorLevel = 1  ; The window has been minimized.  No action needed.
-    return
-; Otherwise, the window has been resized or maximized. Resize the Edit control to match.
-NewWidth := A_GuiWidth - 390
-NewHeight := A_GuiHeight - 80
-GuiControl, 1: Move, pwb, W%NewWidth% H%NewHeight%
+    if ErrorLevel = 1  ; The window has been minimized.  No action needed.
+        return
+    ; Otherwise, the window has been resized or maximized. Resize the Edit control to match.
+    NewWidth := A_GuiWidth - 390
+    NewHeight := A_GuiHeight - 80
+    GuiControl, 1: Move, pwb, W%NewWidth% H%NewHeight%
 
 return
 
@@ -243,6 +266,9 @@ ExitApp
             pwb := PWB_Init(WinTitle) 
 			pwb.Navigate(what)
             ComObjConnect(pwb)
+            
+            GuiControl,, vlc, %what% 
+            
         ;}
 		;else do nothing
 	}
