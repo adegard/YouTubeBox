@@ -70,6 +70,7 @@ JsonObject := MyJsonInstance.Load(JsonContent)
 
 ;reset lista
 Lista=
+     
 ;MsgBox, %JsonObject%
 ; or simply JsonObject := JSON.Load(JsonContent), since You want to use the class' method only
 for id,items in JsonObject["items"]{	; go through "JsonObject" array (series[1], series[2], and so on)
@@ -91,6 +92,7 @@ for id,items in JsonObject["items"]{	; go through "JsonObject" array (series[1],
 
     ;Lista  .= "</br> <a href=myapp://https://www.youtube.com/watch?v="Linka " >" Title "</a></br>"     
     Lista  .= "<tr><td style='text-align: left; width: 97px;'><a href=myapp://https://www.youtube.com/watch?v="Linka "><img border='0' src="thumb " ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/watch?v="Linka ">" Title "</a></td></tr>"     
+    ;MsgBox, %Lista%
     
  }        
 
@@ -109,24 +111,25 @@ FileRead, JsonContent2, playlistJsonFile.json	; ensure the file is saved in UTF-
 MyJsonInstance2 := new JSON()
 JsonObject2 := MyJsonInstance2.Load(JsonContent2)
 
-   ; Lista  .= "</br> PlayLists: </br>"     
+Lista  .=   "<tr><td style='text-align: left; width: 97px;'>PlayLists:</td><td style='text-align: left; width: 134px;'></td></tr>"
 
+;Lista  .= "</br> PlayLists: </br>" 
 ;MsgBox, %JsonObject%
 ; or simply JsonObject := JSON.Load(JsonContent), since You want to use the class' method only
 for id,items in JsonObject2["items"]{	; go through "JsonObject" array (series[1], series[2], and so on)
-    for key1,val1 in items.snippet{		; go through "JsonObject" array (series[1], series[2], and so on)
-        if (key1="Title")
-            Title := val1
+    for key4,val4 in items.snippet{		; go through "JsonObject" array (series[1], series[2], and so on)
+        if (key4="Title")
+            Title := val4
      }
-    for key3,val3 in items.snippet.thumbnails.default{	
+    for key5,val5 in items.snippet.thumbnails.default{	
 	;MsgBox, %key3%
-            if (key3="url")
-                thumb := val3
+            if (key5="url")
+                thumb := val5
      }
      
-    for key2,val2 in items.id{		; go through "JsonObject" array (series[1], series[2], and so on)
-        if (key2="playlistId")
-            Linka := val2
+    for key6,val6 in items.id{		; go through "JsonObject" array (series[1], series[2], and so on)
+        if (key6="playlistId")
+            Linka := val6
      }
 
    ; Lista  .= "</br> <a href=myapp://https://www.youtube.com//playlist?list="Linka " >" Title "</a></br>"     
