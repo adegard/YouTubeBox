@@ -1,5 +1,5 @@
-<h1> YouTubeBox </h1>
-<p><a href="#setup">Set Up</a></p>
+<h1> YouTubeBox Player (beta)</h1>
+<p><a href="#setup">Set Up</a> | <a href="https://autohotkey.com/boards/viewtopic.php?f=6&t=59438">Forum Thread</a></p>
 
 <p><strong>YouTubeBox Player is a Simple Player Youtube in AutoHotKey</strong></p>
 
