@@ -206,13 +206,13 @@ return
 
 
 aa1:
-MsgBox, %vlcurl%
+;MsgBox, %vlcurl%
     ;id1=_b9R_x_imBM
     ;id1=CK-pDtdW4Ug
     ;id1=0LTZRYJzqB4    ;- not works
     ;F1=https://www.youtube.com/watch?v=%id1%
     F1= %vlcurl%
-    MsgBox, %F1%
+    ;MsgBox, %F1%
          vlcx.playlist.add(F1,"","""""")
          vlcx.playlist.next()
 return
