@@ -192,7 +192,7 @@ GuiSize:
 if ErrorLevel = 1  ; The window has been minimized.  No action needed.
     return
 ; Otherwise, the window has been resized or maximized. Resize the Edit control to match.
-NewWidth := A_GuiWidth - 400
+NewWidth := A_GuiWidth - 390
 NewHeight := A_GuiHeight - 80
 GuiControl, 1: Move, pwb, W%NewWidth% H%NewHeight%
 
