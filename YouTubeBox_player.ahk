@@ -39,7 +39,7 @@ return
 
 ;MsgBox, %List%
 
-ENTER::
+
 search:
 
 ;Waiting...
