@@ -202,7 +202,7 @@ FileExit:     ; User chose "Exit" from the File menu.
 GuiClose:  ; User closed the window.
 ExitApp
 
-Esc::ExitApp
+;Esc::ExitApp
 
 
     class WB_events
