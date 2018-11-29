@@ -10,7 +10,7 @@ MYAPP_PROTOCOL:="myapp"
 Menu Tray, Icon, shell32.dll, 169
 
 Gui 1:+Resize 
-Gui 1:Add, Edit, vsearch x450 y3 w261 h30 -VScroll, autohotkey
+Gui 1:Add, Edit, vsearch x450 y3 w261 h30  -WantReturn -VScroll, megadeth
 Gui 1:Add, Button, x720 y5 w80 h23 gsearch, &SEARCH
 Gui Add, Link, x15 y10 w187 h15, <a href="https://autohotkey.com/boards/viewtopic.php?f=6&t=59438">Forum Thread ahk</a>
 
