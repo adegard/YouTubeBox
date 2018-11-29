@@ -11,7 +11,13 @@ Menu Tray, Icon, shell32.dll, 169
 
 Gui 1:+Resize 
 Gui 1:Add, Edit, vsearch x450 y3 w261 h30  -WantReturn -VScroll, megadeth
-Gui 1:Add, Button, x720 y5 w80 h23 gsearch, &SEARCH
+Gui 1:Add, Button, x716 y3 w35 h30 gsearch hwndsearch ;, &SEARCH
+GuiButtonIcon(search, "shell32.dll", 56, "s32 a4")
+
+/*
+Gui Add, Button, vieselector x16 y370 w42 h36 section gSelector hwndieselector
+GuiButtonIcon(ieselector, "shell32.dll", 56, "s32 a4")
+*/
 Gui Add, Link, x15 y10 w187 h15, <a href="https://autohotkey.com/boards/viewtopic.php?f=6&t=59438">Forum Thread ahk</a>
 
 ;VIDEO PLAYER:
@@ -407,6 +413,10 @@ return, FocusedControl
  *     Load() - see relevant documentation before method definition header
  *     Dump() - see relevant documentation before method definition header
  */
+ 
+ 
+
+ 
 class JSON
 {
 	/**
@@ -420,6 +430,8 @@ class JSON
 	 *     reviver   [in, opt] - function object, similar to JavaScript's
 	 *                           JSON.parse() 'reviver' parameter
 	 */
+     
+     
 	class Load extends JSON.Functor
 	{
 		Call(self, ByRef text, reviver:="")
@@ -607,6 +619,7 @@ class JSON
 	 *     space     [in, opt] - similar to JavaScript's JSON.stringify()
 	 *                           'space' parameter
 	 */
+    
 	class Dump extends JSON.Functor
 	{
 		Call(self, value, replacer:="", space:="")
@@ -731,6 +744,8 @@ class JSON
 	 *     of code readability and convenience, it's better to do 'return JSON.Undefined'.
 	 *     Internally, the property returns a ComObject with the variant type of VT_EMPTY.
 	 */
+     
+     
 	Undefined[]
 	{
 		get {
@@ -753,3 +768,31 @@ class JSON
 		}
 	}
 }
+
+
+
+
+GuiButtonIcon(Handle, File, Index := 1, Options := "")
+{
+	RegExMatch(Options, "i)w\K\d+", W), (W="") ? W := 16 :
+	RegExMatch(Options, "i)h\K\d+", H), (H="") ? H := 16 :
+	RegExMatch(Options, "i)s\K\d+", S), S ? W := H := S :
+	RegExMatch(Options, "i)l\K\d+", L), (L="") ? L := 0 :
+	RegExMatch(Options, "i)t\K\d+", T), (T="") ? T := 0 :
+	RegExMatch(Options, "i)r\K\d+", R), (R="") ? R := 0 :
+	RegExMatch(Options, "i)b\K\d+", B), (B="") ? B := 0 :
+	RegExMatch(Options, "i)a\K\d+", A), (A="") ? A := 4 :
+	Psz := A_PtrSize = "" ? 4 : A_PtrSize, DW := "UInt", Ptr := A_PtrSize = "" ? DW : "Ptr"
+	VarSetCapacity( button_il, 20 + Psz, 0 )
+	NumPut( normal_il := DllCall( "ImageList_Create", DW, W, DW, H, DW, 0x21, DW, 1, DW, 1 ), button_il, 0, Ptr )	; Width & Height
+	NumPut( L, button_il, 0 + Psz, DW )		; Left Margin
+	NumPut( T, button_il, 4 + Psz, DW )		; Top Margin
+	NumPut( R, button_il, 8 + Psz, DW )		; Right Margin
+	NumPut( B, button_il, 12 + Psz, DW )	; Bottom Margin	
+	NumPut( A, button_il, 16 + Psz, DW )	; Alignment
+	SendMessage, BCM_SETIMAGELIST := 5634, 0, &button_il,, AHK_ID %Handle%
+	return IL_Add( normal_il, File, Index )
+}
+
+
+
