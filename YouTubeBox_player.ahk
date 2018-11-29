@@ -77,13 +77,20 @@ for id,items in JsonObject["items"]{	; go through "JsonObject" array (series[1],
         if (key1="Title")
             Title := val1
      }
+    for key3,val3 in items.snippet.thumbnails.default{	
+	;MsgBox, %key3%
+            if (key3="url")
+                thumb := val3
+     }
+     
+     
     for key2,val2 in items.id{		; go through "JsonObject" array (series[1], series[2], and so on)
         if (key2="videoId")
             Linka := val2
      }
 
-    Lista  .= "</br> <a href=myapp://https://www.youtube.com/watch?v="Linka " >" Title "</a></br>"     
-    ;MsgBox, "Lista is :" %Lista% 
+    ;Lista  .= "</br> <a href=myapp://https://www.youtube.com/watch?v="Linka " >" Title "</a></br>"     
+    Lista  .= "<tr><td style='text-align: left; width: 97px;'><a href=myapp://https://www.youtube.com/watch?v="Linka "><img border='0' src="thumb " ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/watch?v="Linka ">" Title "</a></td></tr>"     
     
  }        
 
@@ -102,7 +109,7 @@ FileRead, JsonContent2, playlistJsonFile.json	; ensure the file is saved in UTF-
 MyJsonInstance2 := new JSON()
 JsonObject2 := MyJsonInstance2.Load(JsonContent2)
 
-    Lista  .= "</br> PlayLists: </br>"     
+   ; Lista  .= "</br> PlayLists: </br>"     
 
 ;MsgBox, %JsonObject%
 ; or simply JsonObject := JSON.Load(JsonContent), since You want to use the class' method only
@@ -111,13 +118,20 @@ for id,items in JsonObject2["items"]{	; go through "JsonObject" array (series[1]
         if (key1="Title")
             Title := val1
      }
+    for key3,val3 in items.snippet.thumbnails.default{	
+	;MsgBox, %key3%
+            if (key3="url")
+                thumb := val3
+     }
+     
     for key2,val2 in items.id{		; go through "JsonObject" array (series[1], series[2], and so on)
         if (key2="playlistId")
             Linka := val2
      }
 
-    Lista  .= "</br> <a href=myapp://https://www.youtube.com//playlist?list="Linka " >" Title "</a></br>"     
-    ;MsgBox, "Lista is :" %Lista% 
+   ; Lista  .= "</br> <a href=myapp://https://www.youtube.com//playlist?list="Linka " >" Title "</a></br>"     
+    Lista  .= "<tr><td style='text-align: left; width: 97px;'><a href=myapp://https://www.youtube.com/playlist?list="Linka "><img border='0' src="thumb " ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/playlist?list="Linka ">" Title "</a></td></tr>"     
+    ;, "Lista is :" %Lista% 
     
  }     
 /* PARSING HTML METHOD
@@ -147,34 +161,20 @@ Loop, 5 {
 
 HTML_page_head =
 ( Ltrim Join
-<!DOCTYPE html>
-<html>
-	<head>
-		<style>
-			body{font-family:sans-serif;background-color:#dde4ec;}
-			#title{font-size:36px;}
-			#corner{font-size:10px;position:absolute;top:8px;right:8px;}
-			p{font-size:16px;background-color:#efefef;border:solid 1px #666;padding:4px;}
-			#footer{text-align:center;}
-		</style>
-	</head>
-	<body>
-<!--		<div id="title">Video List</div>
-		<div id="corner"><a href="http://feeds.feedburner.com/LastTagIEScripts"  Target='_blank'>RSS Feed</a></div> 
-		<p>The standard Lorem Ipsum passage, used since the 1500s</p>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      
-		<p id="footer">
-		<a href="%MYAPP_PROTOCOL%://https://www.youtube.com/watch?v=SyRHeyFdl0I ">Watch Video</a>&nbsp;-&nbsp;
-		<a href="myapp://https://www.youtube.com/watch?v=SyRHeyFdl0I ">Watch Video</a>&nbsp;-&nbsp;
-  -->          
+  <html>
+   <body>
+<table style="height: 106px; width: 243px;">
+<tbody>
+
  )
 
  HTML_page_foot =
 ( Ltrim Join            
-		</p>
-	</body>
-</html>
+</tbody>
+</table>
+  
+  </body>
+  </html>
 )
 HTML_page = %HTML_page_head%%Lista%%HTML_page_foot%
 
