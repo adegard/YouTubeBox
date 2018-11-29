@@ -5,7 +5,7 @@
 
 For any question/report a problem: open an <a href="https://github.com/adegard/TagIE.ahk/issues">issue</a>
 
-<img src="https://raw.githubusercontent.com/adegard/YouTubeBox/master/YTB2.gif"  align="center">
+<img src="https://i.imgur.com/CfYpvRm.png"  align="center">
 
 ******************
 <a id="user-content-setup" class="anchor" aria-hidden="true" href="#setup"></a><h3>Set Up:</h3>
