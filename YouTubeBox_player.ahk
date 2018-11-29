@@ -57,6 +57,8 @@ GuiControlGet, keyword,, search
 ; example here, by SirRFI (thanks!): https://autohotkey.com/boards/viewtopic.php?f=76&t=38059&p=175017&hilit=parsing+html#p175017
 ;and JSON.ack by cocobelgica (thanks!) https://github.com/cocobelgica/AutoHotkey-JSON/blob/master/JSON.ahk
 YTurl :="https://www.googleapis.com/youtube/v3/search?part=snippet&q=" keyword "&type=video%20&videoCaption=closedCaption&key=AIzaSyCg3TKIXK42J95sMi3-Sr1KiG87H-fvdac"
+
+
 ;MsgBox, %YTurl%
 ;extract urls
 
@@ -85,6 +87,39 @@ for id,items in JsonObject["items"]{	; go through "JsonObject" array (series[1],
     
  }        
 
+/* OTHER WAY TO SEARCH: PLAYLISTS:
+search?part=snippet
+                     &q=soccer
+                     &type=playlist
+                     &key={YOUR_API_KEY}
+             */
+YTurl2 :="https://www.googleapis.com/youtube/v3/search?part=snippet&q=" keyword "&type=playlist&key=AIzaSyCg3TKIXK42J95sMi3-Sr1KiG87H-fvdac"
+                    
+
+FileDelete, playlistJsonFile.json
+UrlDownloadToFile, %YTurl2%, playlistJsonFile.json  ; 01
+FileRead, JsonContent2, playlistJsonFile.json	; ensure the file is saved in UTF-8 with BOM, if there are UNICODE symbols You want to display properly
+MyJsonInstance2 := new JSON()
+JsonObject2 := MyJsonInstance2.Load(JsonContent2)
+
+    Lista  .= "</br> PlayLists: </br>"     
+
+;MsgBox, %JsonObject%
+; or simply JsonObject := JSON.Load(JsonContent), since You want to use the class' method only
+for id,items in JsonObject2["items"]{	; go through "JsonObject" array (series[1], series[2], and so on)
+    for key1,val1 in items.snippet{		; go through "JsonObject" array (series[1], series[2], and so on)
+        if (key1="Title")
+            Title := val1
+     }
+    for key2,val2 in items.id{		; go through "JsonObject" array (series[1], series[2], and so on)
+        if (key2="videoId")
+            Linka := val2
+     }
+
+    Lista  .= "</br> <a href=myapp://https://www.youtube.com/watch?v="Linka " >" Title "</a></br>"     
+    ;MsgBox, "Lista is :" %Lista% 
+    
+ }     
 /* PARSING HTML METHOD
 
 YTurl :="https://www.youtube.com/results?search_query="keyword
