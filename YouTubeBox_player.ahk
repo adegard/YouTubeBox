@@ -11,32 +11,28 @@ MYAPP_PROTOCOL:="myapp"
 Menu Tray, Icon, shell32.dll, 169
 
 Gui 1:+Resize 
-Gui 1:Add, Edit, vsearch x450 y3 w261 h30  -WantReturn -VScroll, megadeth
-Gui 1:Add, Button, x716 y3 w35 h30 gsearch hwndsearch ;, &SEARCH
+Gui 1:Add, Edit, vsearch x370 y5 w178 h30  -WantReturn -VScroll, megadeth ;x450 y3 w261 h30
+Gui 1:Add, Button, x560 y6 w35 h30 gsearch hwndsearch ;, &SEARCH x716 y3 w35 h30
 GuiButtonIcon(search, "shell32.dll", 56, "s32 a4")
 
 Gui 1:Add, Edit, vvlc x21 y380 w275 h21
 Gui 1:Add, Button, x303 y379 w80 h23 gvlc , Send to VLC
 
-
-
-
 Gui Add, Link, x15 y10 w187 h15, <a href="https://autohotkey.com/boards/viewtopic.php?f=6&t=59438">Forum Thread ahk</a>
 
 ;VIDEO PLAYER:
-Gui, 1:Add, ActiveX, x15 y37 w420 h364 vpwb, Shell.Explorer
-pwb.Navigate("https://www.youtube.com/watch?v=UD_mry_DN-s") 
+Gui, 1:Add, ActiveX, x15 y37 w350 h364 vpwb, Shell.Explorer
+pwb.Navigate("https://www.youtube.com/") 
 WinGetTitle, WinTitle, A
 
 GuiControl,, vlc, https://www.youtube.com/watch?v=UD_mry_DN-s
 
-
-;https://www.youtube.com/watch?v=EDwb9jOVRtU")
-Gui 1:Add, ActiveX, x449 y37 w354 h364 vWB, Shell.Explorer  ; The final parameter is the name of the 
+;VIDEO LIST :
+Gui 1:Add, ActiveX, x370 y37 w270 h364 vWB, Shell.Explorer  ; The final parameter is the name of the 
 WinGetTitle, WinTitleWB, A
 
 ;**********************************
-Gui, 1:Show, w811 h412, YoutubeBox
+Gui, 1:Show, w658 h412, YoutubeBox ;w811 h412
 WinGetPos,,, Width, Height, YoutubeBox
 WinMove, YoutubeBox,, (A_ScreenWidth)-(Width) ;, (A_ScreenHeight)-(Height)
 while pwb.busy
@@ -103,7 +99,7 @@ for id,items in JsonObject["items"]{	; go through "JsonObject" array (series[1],
             Linka := val2
      }
 
-    Lista  .= "<tr><td style='text-align: left; width: 97px;'><a href=myapp://https://www.youtube.com/watch?v="Linka "><img border='0' src="thumb " ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/watch?v="Linka ">" Title "</a></td></tr>"     
+    Lista  .= "<tr><td style='text-align: left; width: 87px;'><a href=myapp://https://www.youtube.com/watch?v="Linka "><img border='0' src='"thumb "' width='87' ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/watch?v="Linka ">" Title "</a></td></tr>"     
     ;MsgBox, %Lista%
     
  }        
@@ -141,7 +137,7 @@ for id,items in JsonObject2["items"]{	; go through "JsonObject" array (series[1]
             Linka := val6
      }
 
-    Lista  .= "<tr><td style='text-align: left; width: 97px;'><a href=myapp://https://www.youtube.com/playlist?list="Linka "><img border='0' src="thumb " ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/playlist?list="Linka ">" Title "</a></td></tr>"     
+    Lista  .= "<tr><td style='text-align: left; width: 87px;'><a href=myapp://https://www.youtube.com/playlist?list="Linka "><img border='0' src='"thumb "' width='87' ></a></td><td style='text-align: left; width: 134px;'><a href=myapp://https://www.youtube.com/playlist?list="Linka ">" Title "</a></td></tr>"     
     
  }     
 
@@ -235,7 +231,7 @@ return
 
 
 
-
+/*
 GuiSize:
     if ErrorLevel = 1  ; The window has been minimized.  No action needed.
         return
@@ -245,7 +241,7 @@ GuiSize:
     GuiControl, 1: Move, pwb, W%NewWidth% H%NewHeight%
 
 return
-
+*/
 FileExit:     ; User chose "Exit" from the File menu.
 GuiClose:  ; User closed the window.
 ExitApp
