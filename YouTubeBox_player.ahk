@@ -4,6 +4,7 @@
 #NoEnv
 SetWorkingDir %A_ScriptDir%
 SetBatchLines -1
+FileEncoding, UTF-8
 
 
 MYAPP_PROTOCOL:="myapp"
@@ -47,6 +48,10 @@ WinGet, active_id, ID, A
   
 return
 
+
+64Bit() {
+    Return (FileExist("C:\Program Files (x86)")) ? 1 : 0
+}
 
 search:
 
@@ -159,6 +164,7 @@ HTML_page_head =
 )
 HTML_page = %HTML_page_head%%Lista%%HTML_page_foot%
 
+
 Gui, 2: Destroy
 
 WB.silent := true ;Surpress JS Error boxes
@@ -187,8 +193,18 @@ vlc:
     LH  :=(ha*88) /xx  
     GW  :=(wa*90) /xx 
     GH  :=(ha*92) /xx  
-
-    vlc1        =%A_programfiles%\VideoLAN\VLC\vlc.exe
+    ;vlc1        =%A_programfiles%\VideoLAN\VLC\vlc.exe
+    
+        if (64Bit()=1)
+    {
+        vlc1        =C:\Program Files (x86)\VideoLAN\VLC\vlc.exe
+    }
+    else
+    {
+        vlc1        =%A_programfiles%\VideoLAN\VLC\vlc.exe
+    } 
+    
+    
     ifnotexist,%vlc1% 
       {
       msgbox,needs=`n%vlc1%
