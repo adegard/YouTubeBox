@@ -5,7 +5,7 @@
 
 For any question/report a problem: open an <a href="https://github.com/adegard/TagIE.ahk/issues">issue</a>
 
-<img src="https://i.imgur.com/CfYpvRm.png"  align="center">
+<img src="https://i.imgur.com/GhAUMZM.png"  align="center">
 NOTE: </br>
 Some videos are protected for Authors' rights avoiding VLC to open it.
 
