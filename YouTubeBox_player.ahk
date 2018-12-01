@@ -22,7 +22,8 @@ Gui Add, Link, x15 y10 w187 h15, <a href="https://autohotkey.com/boards/viewtopi
 
 ;VIDEO PLAYER:
 Gui, 1:Add, ActiveX, x15 y37 w350 h364 vpwb, Shell.Explorer
-pwb.Navigate("https://www.youtube.com/") 
+pwb.Navigate("https://www.youtube.com/")
+pwb.statusbar := false
 WinGetTitle, WinTitle, A
 
 GuiControl,, vlc, https://www.youtube.com/watch?v=UD_mry_DN-s
@@ -34,7 +35,7 @@ WinGetTitle, WinTitleWB, A
 ;**********************************
 Gui, 1:Show, w658 h412, YoutubeBox ;w811 h412
 WinGetPos,,, Width, Height, YoutubeBox
-WinMove, YoutubeBox,, (A_ScreenWidth)-(Width) ;, (A_ScreenHeight)-(Height)
+WinMove, YoutubeBox,, (A_ScreenWidth)-(Width), (A_ScreenHeight)-(Height*1.2)
 while pwb.busy
 	sleep 10
 ;
@@ -161,11 +162,9 @@ HTML_page_head =
 HTML_page = %HTML_page_head%%Lista%%HTML_page_foot%
 
 
-Gui, 2: Destroy
-
 WB.silent := true ;Surpress JS Error boxes
 Display(WB,HTML_page)
-
+Gui, 2: destroy
 ComObjConnect(WB, WB_events)  ; Connect WB's events to the WB_events class object.
 firsttime=1
 return
