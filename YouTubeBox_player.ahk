@@ -66,7 +66,9 @@ GuiControlGet, keyword,, search
 ; JSON PARSING METHOD from API YOUTUBE *****************
 ; example here, by SirRFI (thanks!): https://autohotkey.com/boards/viewtopic.php?f=76&t=38059&p=175017&hilit=parsing+html#p175017
 ;and JSON.ack by cocobelgica (thanks!) https://github.com/cocobelgica/AutoHotkey-JSON/blob/master/JSON.ahk
-YTurl :="https://www.googleapis.com/youtube/v3/search?part=snippet&q=" keyword "&type=video%20&videoCaption=closedCaption&key=AIzaSyCg3TKIXK42J95sMi3-Sr1KiG87H-fvdac"
+
+;ADD YOUR API KEY HERE:
+YTurl :="https://www.googleapis.com/youtube/v3/search?part=snippet&q=" keyword "&type=video%20&videoCaption=closedCaption&key=***APIKEY***"
 
 
 ;MsgBox, %YTurl%
@@ -111,7 +113,8 @@ search?part=snippet
                      &type=playlist
                      &key={YOUR_API_KEY}
              */
-YTurl2 :="https://www.googleapis.com/youtube/v3/search?part=snippet&q=" keyword "&type=playlist&key=AIzaSyCg3TKIXK42J95sMi3-Sr1KiG87H-fvdac"
+;ADD YOU API KEY HERE:	     
+YTurl2 :="https://www.googleapis.com/youtube/v3/search?part=snippet&q=" keyword "&type=playlist&key=***APIKEY***"
                     
 
 FileDelete, playlistJsonFile.json
