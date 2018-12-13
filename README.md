@@ -12,7 +12,8 @@ Some videos are protected for Authors' rights avoiding VLC to open it.
 ******************
 <a id="user-content-setup" class="anchor" aria-hidden="true" href="#setup"></a><h3>Set Up:</h3>
 - Install AutoHotKey (https://www.autohotkey.com/)
-- Save and Open <a href="https://github.com/adegard/YouTubeBox/raw/master/YouTubeBox_player.ahk" rel="nofollow">YouTubeBox_player.ahk</a>
+- create your own youtube query API Key (https://developers.google.com/apis-explorer/)
+- Save and add your api key. Open <a href="https://github.com/adegard/YouTubeBox/raw/master/YouTubeBox_player.ahk" rel="nofollow">YouTubeBox_player.ahk</a>
 
 
 
